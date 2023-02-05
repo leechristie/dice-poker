@@ -132,4 +132,4 @@ dmypy.json
 .DS_Store
 
 # sonarlint
-.idea/sonarlint/issuestore/index.pb
+.idea/sonarlint/*
