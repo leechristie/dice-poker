@@ -13,7 +13,8 @@ class UntitledBot(Player):
                             current_stakes: int,
                             available_money: int,
                             my_hand: Hand,
-                            opponent_hand: Hand) -> bool:
+                            opponent_hand: Hand,
+                            raise_amount: int) -> bool:
 
         # we can compare our current hand to the opponent
         if my_hand >= opponent_hand:
