@@ -133,3 +133,7 @@ dmypy.json
 
 # sonarlint
 .idea/sonarlint/*
+
+# misc
+extra-tests.py
+apug-feb-2023.pptx
