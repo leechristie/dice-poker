@@ -156,6 +156,8 @@ class Ranking(Enum):
 
 class Hand:
 
+    DISABLE_UNICODE = False
+
     @staticmethod
     def __rank_dice(dice: List[int]) -> Tuple[Ranking, List[int]]:
 
@@ -294,45 +296,48 @@ class Hand:
         return Hand(*new_dice)
 
     def __str__(self):
+        conversion = str
+        if not Hand.DISABLE_UNICODE:
+            conversion = lambda i: Hand.__UNICODE_DICE[i]
         if self.__ranking == Ranking.FIVE_OF_A_KIND:
-            return Hand.__UNICODE_DICE[self.__detail[0]] * 5 \
+            return conversion(self.__detail[0]) * 5 \
                    + '      Five of a Kind'
         if self.__ranking == Ranking.FOUR_OF_A_KIND:
-            return Hand.__UNICODE_DICE[self.__detail[0]] * 4 \
-                   + ' ' + Hand.__UNICODE_DICE[self.__detail[1]] \
+            return conversion(self.__detail[0]) * 4 \
+                   + ' ' + conversion(self.__detail[1]) \
                    + '     Four of a Kind'
         if self.__ranking == Ranking.FULL_HOUSE:
-            return Hand.__UNICODE_DICE[self.__detail[0]] * 3 \
-                   + ' ' + Hand.__UNICODE_DICE[self.__detail[1]] * 2 \
+            return conversion(self.__detail[0]) * 3 \
+                   + ' ' + conversion(self.__detail[1]) * 2 \
                    + '     Full House'
         if self.__ranking == Ranking.STRAIGHT:
             if self.__detail == [6]:
-                return Hand.__UNICODE_DICE[6:1:-1] + '      Straight'
+                return ''.join([conversion(i) for i in range(2, 6+1)]) + '      Straight'
             else:
                 assert self.__detail == [5]
-                return Hand.__UNICODE_DICE[5:0:-1] + '      Straight'
+                return ''.join([conversion(i) for i in range(1, 5+1)]) + '      Straight'
         if self.__ranking == Ranking.THREE_OF_A_KIND:
-            return Hand.__UNICODE_DICE[self.__detail[0]] * 3 \
-                   + ' ' + Hand.__UNICODE_DICE[self.__detail[1]] \
-                   + ' ' + Hand.__UNICODE_DICE[self.__detail[2]] \
+            return conversion(self.__detail[0]) * 3 \
+                   + ' ' + conversion(self.__detail[1]) \
+                   + ' ' + conversion(self.__detail[2]) \
                    + '    Three of a Kind'
         if self.__ranking == Ranking.TWO_PAIRS:
-            return Hand.__UNICODE_DICE[self.__detail[0]] * 2 \
-                   + ' ' + Hand.__UNICODE_DICE[self.__detail[1]] * 2 \
-                   + ' ' + Hand.__UNICODE_DICE[self.__detail[2]] \
+            return conversion(self.__detail[0]) * 2 \
+                   + ' ' + conversion(self.__detail[1]) * 2 \
+                   + ' ' + conversion(self.__detail[2]) \
                    + '    Two Pair'
         if self.__ranking == Ranking.PAIR:
-            return Hand.__UNICODE_DICE[self.__detail[0]] * 2 \
-                   + ' ' + Hand.__UNICODE_DICE[self.__detail[1]] \
-                   + ' ' + Hand.__UNICODE_DICE[self.__detail[2]] \
-                   + ' ' + Hand.__UNICODE_DICE[self.__detail[3]] \
+            return conversion(self.__detail[0]) * 2 \
+                   + ' ' + conversion(self.__detail[1]) \
+                   + ' ' + conversion(self.__detail[2]) \
+                   + ' ' + conversion(self.__detail[3]) \
                    + '   Pair'
         assert self.__ranking == Ranking.NOTHING
-        return Hand.__UNICODE_DICE[self.__detail[0]] \
-            + ' ' + Hand.__UNICODE_DICE[self.__detail[1]] \
-            + ' ' + Hand.__UNICODE_DICE[self.__detail[2]] \
-            + ' ' + Hand.__UNICODE_DICE[self.__detail[3]] \
-            + ' ' + Hand.__UNICODE_DICE[self.__detail[4]] \
+        return conversion(self.__detail[0]) \
+            + ' ' + conversion(self.__detail[1]) \
+            + ' ' + conversion(self.__detail[2]) \
+            + ' ' + conversion(self.__detail[3]) \
+            + ' ' + conversion(self.__detail[4]) \
             + '  Nothing'
 
     def __repr__(self):

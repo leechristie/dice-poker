@@ -1,4 +1,5 @@
 from dicepoker import *
+#Hand.DISABLE_UNICODE = True
 
 
 # Create Your Dice Poker AI
