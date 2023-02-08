@@ -1,4 +1,5 @@
 import sys
+from time import sleep
 from typing import List
 
 from dicepoker import Player, Hand, Human
@@ -142,17 +143,24 @@ def play(player1: Player,
     return rv
 
 
-def print_rounds(result, player1, player2):
-    player1_name = player1.name()
-    player2_name = player2.name()
-    if player1_name == player2_name:
-        player1_name += ' (1)'
-        player2_name += ' (2)'
-    width = max([8, len('Round'), len(player1_name), len(player2_name)])
-    print(f'{"Round":>{width}} {player1_name:>{width}} {player2_name:>{width}}')
-    print('-'*width + ' ' + '-'*width + ' ' + '-'*width)
-    for round_num, player1_coin, player2_coin in result:
-        print(f'{round_num:>{width}} {player1_coin:>{width}} {player2_coin:>{width}}')
+def print_rounds(result, player1, player2, suspense=None):
+    try:
+        player1_name = player1.name()
+        player2_name = player2.name()
+        if player1_name == player2_name:
+            player1_name += ' (1)'
+            player2_name += ' (2)'
+        width = max([8, len('Round'), len(player1_name), len(player2_name)])
+        print(f'{"Round":>{width}} {player1_name:>{width}} {player2_name:>{width}}')
+        print('-'*width + ' ' + '-'*width + ' ' + '-'*width)
+        for round_num, player1_coin, player2_coin in result:
+            if suspense:
+                sleep(suspense)
+            print(f'{round_num:>{width}} {player1_coin:>{width}} {player2_coin:>{width}}')
+    except KeyboardInterrupt:
+        print()
+        print()
+        print_rounds(result, player1, player2, suspense=None)
 
 
 def challenge(cpu_player: Player,
