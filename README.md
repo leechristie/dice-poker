@@ -1,6 +1,6 @@
 # Dice Poker
 
-Dice Poker API for Aberdeen Python User Group (Feb 2023)
+Dice Poker API for [Aberdeen Python User Group - Feb 2023](https://github.com/PythonAberdeen/user_group/tree/master/2023/2023-02)
 
 ## 0. Install Python and an IDE
 
